@@ -1,0 +1,7 @@
+{
+  "name": "baby-kicks",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
