@@ -2,6 +2,7 @@
   "name": "baby-kicks",
   "version": "0.0.1",
   "private": true,
+  "homepage": "https://baby-kix.now.sh",
   "dependencies": {
     "@capacitor/core": "2.0.1",
     "@ionic/react": "^5.0.7",
