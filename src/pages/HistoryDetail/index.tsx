@@ -1,8 +1,9 @@
 import React, { useContext, useCallback, useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, useIonViewDidEnter, IonLoading, IonButtons, IonBackButton, IonGrid, IonRow, IonCol, IonListHeader } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, useIonViewDidEnter, IonLoading, IonButtons, IonBackButton, IonGrid, IonRow, IonCol, IonListHeader, IonButton } from '@ionic/react';
+import { useParams } from 'react-router';
 import { SessionHistory, Kick } from '../../types';
 import { Context } from '../../state';
-import { useParams } from 'react-router';
+import { EmptyState } from '../../components';
 import './styles.scss';
 
 function formatTime(date: number) {
@@ -16,6 +17,7 @@ function formatDate(date: string) {
 const HistoryDetail: React.FC = () => {
   const { id } = useParams();
   const { history } = useContext(Context);
+  const [loading, setLoading] = useState<boolean>(true);
   const [session, setSession] = useState<SessionHistory>();
 
   useIonViewDidEnter(
@@ -23,6 +25,7 @@ const HistoryDetail: React.FC = () => {
       const sesh = history.find((h: SessionHistory) => h.id === id);
       if (sesh) {
         setSession(sesh);
+        setLoading(false);
       }
     },
     [id]
@@ -50,7 +53,14 @@ const HistoryDetail: React.FC = () => {
       }
 
       return (
-        <IonLoading isOpen={true} />
+        <EmptyState
+          message="No kicks in session"
+          action={
+            <IonButton fill="clear" routerLink="/history" routerDirection="back">
+              Back
+            </IonButton>
+          }
+        />
       )
     },
     [session]
@@ -79,8 +89,9 @@ const HistoryDetail: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        {renderHistory()}
+        {!loading ? renderHistory() : null}
       </IonContent>
+      <IonLoading isOpen={loading} />
     </IonPage>
   );
 };

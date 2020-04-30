@@ -1,7 +1,8 @@
 import React, { useContext, useCallback } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonNote, IonRow, IonGrid, IonCol, IonItemSliding, IonItemOptions, IonItemOption } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonNote, IonItemSliding, IonItemOptions, IonItemOption, IonButton } from '@ionic/react';
 import { SessionHistory, Action } from '../../types';
 import { Context } from '../../state';
+import { EmptyState } from '../../components';
 import './styles.scss';
 
 function formatTime(date: number) {
@@ -41,13 +42,14 @@ const History: React.FC = () => {
       }
 
       return (
-        <IonGrid>
-          <IonRow>
-            <IonCol>
-              <h1>Nothing to see here yet!</h1>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+        <EmptyState
+          message="No sessions"
+          action={
+            <IonButton fill="clear" routerLink="/counter" routerDirection="none">
+              Start your first session
+            </IonButton>
+          }
+        />
       )
     },
     [dispatch, state.history]
@@ -61,11 +63,6 @@ const History: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen={true}>
-        {/* <IonHeader collapse="condense">
-          <IonToolbar color="primary" style={{ '--border-color': 'var(--ion-color-primary)' }}>
-            <IonTitle size="large">History</IonTitle>
-          </IonToolbar>
-        </IonHeader> */}
         {renderHistory()}
       </IonContent>
     </IonPage>

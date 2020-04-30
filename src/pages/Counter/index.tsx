@@ -90,7 +90,7 @@ const Counter: React.FC = () => {
                 </filter>
               </defs>
               <circle className="neu-backdrop" strokeDasharray="360" r="40" cx="50" cy="50"></circle>
-              <circle className="neu-gauge" filter="url(#glow)" strokeDasharray="360" r="40" cx="50" cy="50"></circle>
+              <circle className="neu-gauge" fill="url(#glow)" strokeDasharray="360" r="40" cx="50" cy="50"></circle>
             </svg>
 
             {state.session === SessionState.Started ?

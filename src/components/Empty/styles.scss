@@ -1,0 +1,29 @@
+.emtpy-state {
+    padding: 20vh 16px;
+
+    ion-img {
+        max-width: 75%;
+        opacity: 0.75;
+    }
+
+    ion-col {
+        display: flex;
+        justify-content: center;
+    }
+
+    &-content {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        text-align: center;
+
+        h1 {
+            font-weight: 700;
+        }
+    }
+}
