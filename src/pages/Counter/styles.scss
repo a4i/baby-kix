@@ -1,0 +1,114 @@
+.counter {
+    ion-content {
+        --background: var(--ion-color-secondary);
+    }
+
+    .neu-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        padding: 16px;
+        width: 100%;
+    }
+
+    .neu-kicker {
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease-in-out;
+
+      ion-button:first-child {
+        --border-radius: 25px;
+
+        background: linear-gradient(145deg, #ffd0e4, #dbafc0);
+        border-radius: 25px;
+        box-shadow:  8px 8px 16px #cfa5b5, -4px -4px 16px #ffdff5;
+        margin-bottom: 16px;
+      }
+    }
+
+    .neu-progress {
+        position: relative;
+        transition: all 0.3s ease-in-out;
+
+        &-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            transform: translate3d(-50%, -50%, 0);
+
+            * {
+                color: var(--ion-color-light);
+                font-weight: bold;
+                line-height: 1;
+                margin: 0;
+                text-transform: uppercase;
+            }
+
+            h1 {
+                font-size: 5rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+        }
+    }
+
+    .neu-timer {
+        animation: rotate 5s linear infinite;
+        animation-play-state: var(--freeze-progress);
+        pointer-events: none;
+        stroke-linecap: round;
+        width: 100%;
+        z-index: 2;
+    }
+
+    .neu-time {
+        fill: rgba(255, 255, 255, 0.6);
+    }
+
+    .neu-backdrop {
+        fill: none;
+        stroke-width: 5;
+        stroke: var(--ion-color-secondary-shade);
+        transform-origin: center;
+        transform: rotate(-90deg);
+    }
+
+    .neu-gauge {
+        animation: dash 2s ease-in-out infinite;
+        animation-play-state: var(--freeze-progress);
+        stroke-width: 5;
+        stroke-dasharray: 251;
+        stroke-dashoffset: 280;
+        stroke: var(--gauge-fill);
+        transform-origin: center;
+        transform: rotate(-90deg);
+    }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 250;
+    transform: rotate(0);
+  }
+
+  50% {
+    stroke-dashoffset: 75;
+    transform: rotate(45deg);
+  }
+
+  100% {
+    stroke-dashoffset: 250;
+    transform: rotate(360deg);
+  }
+}
