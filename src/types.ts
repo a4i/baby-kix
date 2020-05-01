@@ -13,7 +13,8 @@ export enum Action {
   Stop = 'stop',
   Increase = 'increase',
   Descrease = 'descrease',
-  RemoveHistory = 'remove-history'
+  RemoveHistory = 'remove-history',
+  UpdateSetting = 'update-setting'
 }
 
 export interface Kick {
@@ -38,6 +39,7 @@ export interface AppState {
   timeStart?: number;
   timeEnd?: number;
   history: SessionHistory[];
+  settings?: Settings;
 
   // created in reducer
   readonly dispatch: any;
@@ -46,4 +48,10 @@ export interface AppState {
 export interface AppAction {
   type: Action;
   payload: any;
+}
+
+export interface Settings {
+  name?: string;
+  gender?: 'boy'|'girl';
+  dueDate?: string;
 }

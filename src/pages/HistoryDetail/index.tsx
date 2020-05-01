@@ -76,20 +76,27 @@ const HistoryDetail: React.FC = () => {
           <IonTitle>{session ? formatDate(session.date) : ''}</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
-        <IonGrid>
-          <IonRow>
-            <IonCol className="ion-text-center">
-              <span className="eyebrow">Start Time</span>
-              {session && <h4>{formatTime(session.timeStart)}</h4>}
-            </IonCol>
-            <IonCol className="ion-text-center">
-              <span className="eyebrow">End Time</span>
-              {session && <h4>{formatTime(session.timeEnd)}</h4>}
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-        {!loading ? renderHistory() : null}
+      <IonContent fullscreen={true} color="primary">
+        <IonHeader collapse="condense">
+          <IonToolbar color="primary" style={{ '--border-color': 'var(--ion-color-primary)' }}>
+            <IonTitle size="large">{session ? formatDate(session.date) : ''}</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <div className="main">
+          <IonGrid>
+            <IonRow>
+              <IonCol className="ion-text-center">
+                <span className="eyebrow">Start Time</span>
+                {session && <h4>{formatTime(session.timeStart)}</h4>}
+              </IonCol>
+              <IonCol className="ion-text-center">
+                <span className="eyebrow">End Time</span>
+                {session && <h4>{formatTime(session.timeEnd)}</h4>}
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          {!loading ? renderHistory() : null}
+        </div>
       </IonContent>
       <IonLoading isOpen={loading} />
     </IonPage>

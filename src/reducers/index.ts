@@ -1,4 +1,6 @@
 import { Action, AppState, AppAction, SessionHistory, SessionState } from "../types";
+import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
 
 function uniqueId() {
   return Math.random().toString(36).substring(2, 15);
@@ -70,11 +72,20 @@ export function reducer(state: AppState, action: AppAction) {
         ]
       };
       break;
+    case Action.UpdateSetting:
+      newState = {
+        ...state,
+        settings: {
+          ...state.settings,
+          [action.payload.key]: action.payload.value
+        }
+      };
+      break;
     default:
       break;
   }
 
-  window.localStorage.setItem('__babykicks__', JSON.stringify(newState));
+  Storage.set({ key: '__babykicks__', value: JSON.stringify(newState) })
 
   return newState;
 }

@@ -1,3 +1,51 @@
 .settings {
+    .main {
+        background: var(--ion-color-secondary);
+        color: var(--ion-color-secondary-contrast);
+        height: calc(100% - var(--offset-top));
+    }
 
+    ion-grid {
+        padding: 16px;
+        padding-top: 24px;
+
+        ion-row {
+            margin-bottom: 24px;
+        }
+    }
+
+    ion-item,
+    ion-segment,
+    .neu-button {
+        --ion-item-background: transparent;
+
+        background: #f3c2d5;
+        box-shadow:  5px 5px 10px #c29baa,
+                    -5px -5px 10px #ffe9ff;
+
+        &.ion-activated,
+        &.item-has-focus {
+            background: #f3c2d5;
+            box-shadow: inset 5px 5px 10px #c29baa,
+                        inset -5px -5px 10px #ffe9ff;
+        }
+    }
+
+    ion-item {
+        border-radius: 10px;
+    }
+
+    ion-segment {
+        min-height: 44px;
+    }
+
+    .neu-button {
+        align-items: center;
+        border-radius: 10px;
+        display: flex;
+        height: 2.8em;
+        justify-content: center;
+        padding: 0 var(--padding-start);
+        user-select: none;
+    }
 }

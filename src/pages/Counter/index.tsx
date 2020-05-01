@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState, CSSProperties, useRef } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonIcon, IonToast } from '@ionic/react';
+import { isPlatform, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonIcon, IonToast } from '@ionic/react';
 import { differenceInSeconds } from 'date-fns';
 import { useHistory } from 'react-router-dom';
+import { Plugins, HapticsImpactStyle } from '@capacitor/core';
 import { Context } from '../../state';
 import { Action, SessionState } from '../../types';
 import './styles.scss';
+
+const { Haptics } = Plugins;
 
 function formatTime(seconds: number): string {
   const diffHours: number = Math.floor(seconds / 3600);
@@ -48,7 +51,6 @@ const Counter: React.FC = () => {
         }
 
         if (prevSessionState.current !== state.session) {
-          console.log('show alert');
           setShowAlert(true);
         }
       }
@@ -69,10 +71,10 @@ const Counter: React.FC = () => {
     <IonPage className="counter">
       <IonHeader>
         <IonToolbar color="primary" style={{ '--border-color': 'var(--ion-color-primary)' }}>
-          <IonTitle>baby kix</IonTitle>
+          <IonTitle>Baby Kix</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent fullscreen={true}>
         <div className="neu-container">
           <div className="neu-progress" style={{
             'transform': state.session === SessionState.Started ? 'translate3d(0, -25px, 0)' : 'none',
@@ -114,7 +116,14 @@ const Counter: React.FC = () => {
               transform: state.session === SessionState.Started ? 'translate3d(0, 0, 0)' : 'translate3d(0, -25px, 0)',
             }}
           >
-            <IonButton size="large" color="secondary" onClick={() => dispatch({ type: Action.Increase })}>
+            <IonButton size="large" color="secondary" onClick={() => {
+              if (isPlatform('capacitor')) {
+                Haptics.impact({
+                  style: HapticsImpactStyle.Light
+                });
+              }
+              dispatch({ type: Action.Increase });
+            }}>
               Kick
               <IonIcon slot="end" src="assets/icon/baby-feet.svg" />
             </IonButton>

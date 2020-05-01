@@ -1,7 +1,11 @@
 .history {
-    .empty-state {
-        align-items: center;
-        display: flex;
-        min-height: 300px;
+    .main {
+        background: var(--ion-color-secondary);
+        color: var(--ion-color-secondary-contrast);
+        height: calc(100% - var(--offset-top));
+    }
+
+    ion-list {
+        --ion-item-background: transparent;
     }
 }

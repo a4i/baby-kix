@@ -12,15 +12,13 @@ export const defaultState: AppState = {
   dispatch: () => {}
 }
 
-const storage = window.localStorage.getItem('__babykicks__');
-
-const Context = React.createContext<AppState>(Object.assign(defaultState, storage ? JSON.parse(storage) : {}));
+const Context = React.createContext<AppState>(defaultState);
 
 const { Consumer, Provider } = Context;
 
-const AppContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const AppContextProvider: React.FC<{ initialState?: AppState, children: ReactNode }> = ({ initialState, children }) => {
 
-  const [state, dispatch] = useReducer(reducer, { ...defaultState });
+  const [state, dispatch] = useReducer(reducer, { ...defaultState, ...initialState });
   const value = { ...state, dispatch };
 
   return (

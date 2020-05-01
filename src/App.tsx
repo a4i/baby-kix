@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Redirect, Route } from 'react-router-dom';
-import {
-  IonApp,
-} from '@ionic/react';
+import { IonApp } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { Plugins } from '@capacitor/core';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -30,17 +29,45 @@ import AppContextProvider from './state';
 
 /* Pages */
 import Tabs from './pages/Tabs';
+import { AppState } from './types';
+import { SplashScreen } from './components';
+
+const { Storage } = Plugins;
 
 const App: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [data, setData] = useState<AppState>();
+
+  useEffect(
+    () => {
+      const initialize = async () => {
+        const storage = await Storage.get({ key: '__babykicks__'});
+        if (storage.value) {
+          setData(JSON.parse(storage.value));
+        }
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 250);
+      };
+
+      initialize();
+    },
+    []
+  );
 
   return (
-    <AppContextProvider>
-      <IonApp>
-        <IonReactRouter>
-          <Tabs />
-        </IonReactRouter>
-      </IonApp>
-    </AppContextProvider>
+    <IonApp>
+      {loading ?
+        <SplashScreen />
+      :
+        <AppContextProvider initialState={data}>
+          <IonReactRouter>
+            <Tabs />
+          </IonReactRouter>
+        </AppContextProvider>
+      }
+    </IonApp>
   )
 };
 
