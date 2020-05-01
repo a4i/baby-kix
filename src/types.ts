@@ -11,6 +11,7 @@ export enum SessionState {
 export enum Action {
   Start = 'start',
   Stop = 'stop',
+  Cancel = 'cancel',
   Increase = 'increase',
   Descrease = 'descrease',
   RemoveHistory = 'remove-history',

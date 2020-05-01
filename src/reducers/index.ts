@@ -40,6 +40,13 @@ export function reducer(state: AppState, action: AppAction) {
         history
       };
       break;
+    case Action.Cancel:
+      newState = {
+        ...state,
+        session: SessionState.Stopped,
+        kicks: [],
+      };
+      break;
     case Action.Increase:
       newState = {
         ...state,

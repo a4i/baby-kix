@@ -15,13 +15,13 @@ const Settings: React.FC = () => {
   return (
     <IonPage className="settings">
       <IonHeader translucent={true}>
-        <IonToolbar color="primary" style={{ '--border-color': 'var(--ion-color-primary)' }}>
+        <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
           <IonTitle>Settings</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen={true} color="primary">
+      <IonContent fullscreen={true} color="secondary">
         <IonHeader collapse="condense">
-          <IonToolbar color="primary" style={{ '--border-color': 'var(--ion-color-primary)' }}>
+          <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
             <IonTitle size="large">Settings</IonTitle>
           </IonToolbar>
         </IonHeader>
@@ -77,7 +77,7 @@ const Settings: React.FC = () => {
       </IonContent>
       <IonToast
         isOpen={toast}
-        position="bottom"
+        position="top"
         onDidDismiss={() => showToast(false)}
         message="Your settings are saved!"
         buttons={['OK']}

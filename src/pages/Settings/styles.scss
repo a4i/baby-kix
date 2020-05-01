@@ -1,8 +1,6 @@
 .settings {
-    .main {
-        background: var(--ion-color-secondary);
-        color: var(--ion-color-secondary-contrast);
-        height: calc(100% - var(--offset-top));
+    ion-content {
+        --overflow: hidden;
     }
 
     ion-grid {
@@ -19,15 +17,16 @@
     .neu-button {
         --ion-item-background: transparent;
 
-        background: #f3c2d5;
-        box-shadow:  5px 5px 10px #c29baa,
-                    -5px -5px 10px #ffe9ff;
+        border-radius: 10px;
+        background: #f4f5f8;
+        box-shadow:  5px 5px 10px #cfd0d3,
+                    -5px -5px 10px #ffffff;
 
         &.ion-activated,
         &.item-has-focus {
-            background: #f3c2d5;
-            box-shadow: inset 5px 5px 10px #c29baa,
-                        inset -5px -5px 10px #ffe9ff;
+            background: #f4f5f8;
+            box-shadow: inset 5px 5px 10px #cfd0d3,
+                        inset -5px -5px 10px #ffffff;
         }
     }
 

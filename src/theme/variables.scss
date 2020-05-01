@@ -189,3 +189,9 @@ http://ionicframework.com/docs/theming/ */
     --ion-tab-bar-background: #1f1f1f;
   }
 }
+
+.main {
+  background: var(--ion-color-light);
+  color: var(--ion-color-light-contrast);
+  height: 100%;
+}

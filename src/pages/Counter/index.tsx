@@ -49,10 +49,6 @@ const Counter: React.FC = () => {
           clearInterval(interval.current!);
           interval.current = null;
         }
-
-        if (prevSessionState.current !== state.session) {
-          setShowAlert(true);
-        }
       }
 
       prevSessionState.current = state.session;
@@ -70,7 +66,7 @@ const Counter: React.FC = () => {
   return (
     <IonPage className="counter">
       <IonHeader>
-        <IonToolbar color="primary" style={{ '--border-color': 'var(--ion-color-primary)' }}>
+        <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
           <IonTitle>Baby Kix</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -102,7 +98,7 @@ const Counter: React.FC = () => {
               </div>
             :
               <div className="neu-progress-content">
-                <IonButton fill="clear" onClick={() => dispatch({ type: Action.Start })}>
+                <IonButton size="large" fill="clear" onClick={() => dispatch({ type: Action.Start })}>
                   Start<br/>Session
                 </IonButton>
               </div>
@@ -124,12 +120,18 @@ const Counter: React.FC = () => {
               }
               dispatch({ type: Action.Increase });
             }}>
-              Kick
-              <IonIcon slot="end" src="assets/icon/baby-feet.svg" />
+
+              <IonIcon slot="icon-only" src="assets/icon/baby-feet.svg" />
             </IonButton>
 
-            <IonButton fill="clear" size="small" onClick={() => dispatch({ type: Action.Stop })}>
+            <IonButton fill="outline" size="small" onClick={() => {
+              dispatch({ type: Action.Stop });
+              setShowAlert(true);
+            }}>
               Stop Session
+            </IonButton>
+            <IonButton fill="clear" color="danger" size="small" onClick={() => dispatch({ type: Action.Cancel })}>
+              Cancel
             </IonButton>
           </div>
         </div>
@@ -139,7 +141,7 @@ const Counter: React.FC = () => {
         isOpen={showAlert}
         onDidDismiss={() => setShowAlert(false)}
         duration={3000}
-        position="middle"
+        position="top"
         message="Session Complete"
         buttons={[
         {
