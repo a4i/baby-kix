@@ -30,9 +30,9 @@ import AppContextProvider from './state';
 /* Pages */
 import Tabs from './pages/Tabs';
 import { AppState } from './types';
-import { SplashScreen } from './components';
+import { SplashScreen as AppSplashScreen } from './components';
 
-const { Storage } = Plugins;
+const { SplashScreen, Storage } = Plugins;
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -45,6 +45,8 @@ const App: React.FC = () => {
         if (storage.value) {
           setData(JSON.parse(storage.value));
         }
+
+        await SplashScreen.hide();
 
         setTimeout(() => {
           setLoading(false);
@@ -59,7 +61,7 @@ const App: React.FC = () => {
   return (
     <IonApp>
       {loading ?
-        <SplashScreen />
+        <AppSplashScreen />
       :
         <AppContextProvider initialState={data}>
           <IonReactRouter>

@@ -1,4 +1,8 @@
 .settings {
+    ion-toolbar {
+        background: var(--ion-color-secondary) !important;
+    }
+
     ion-content {
         --overflow: hidden;
     }

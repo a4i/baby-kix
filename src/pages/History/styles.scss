@@ -1,4 +1,8 @@
 .history {
+    ion-toolbar {
+        background: var(--ion-color-secondary) !important;
+    }
+
     ion-list {
         --ion-item-background: transparent;
     }

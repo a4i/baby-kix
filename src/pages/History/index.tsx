@@ -33,7 +33,7 @@ const History: React.FC = () => {
                   </IonNote>
                 </IonItem>
                 <IonItemOptions side="end">
-                  <IonItemOption color="danger" onClick={() => dispatch({ type: Action.RemoveHistory, payload: { id: history.id }})}>Delete</IonItemOption>
+                  <IonItemOption color="danger" onClick={() => dispatch({ type: Action.RemoveHistory, payload: { id: history.id } })}>Delete</IonItemOption>
                 </IonItemOptions>
               </IonItemSliding>
             ))}
@@ -62,15 +62,13 @@ const History: React.FC = () => {
           <IonTitle>History</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen={true} color="secondary">
+      <IonContent fullscreen={true} color="light">
         <IonHeader collapse="condense">
           <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
             <IonTitle size="large">History</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <div className="main">
         {renderHistory()}
-        </div>
       </IonContent>
     </IonPage>
   );

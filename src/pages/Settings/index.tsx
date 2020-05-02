@@ -19,7 +19,7 @@ const Settings: React.FC = () => {
           <IonTitle>Settings</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen={true} color="secondary">
+      <IonContent fullscreen={true} color="light">
         <IonHeader collapse="condense">
           <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
             <IonTitle size="large">Settings</IonTitle>

@@ -1,4 +1,8 @@
 .history-detail {
+    ion-toolbar {
+        background: var(--ion-color-secondary) !important;
+    }
+
     ion-grid {
         padding-top: 24px;
     }
