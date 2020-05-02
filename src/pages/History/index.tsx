@@ -1,9 +1,9 @@
 import React, { useContext, useCallback } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonNote, IonItemSliding, IonItemOptions, IonItemOption, IonButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonNote, IonItemSliding, IonItemOptions, IonItemOption, IonButton, isPlatform } from '@ionic/react';
 import { SessionHistory, Action } from '../../types';
 import { Context } from '../../state';
-import { EmptyState } from '../../components';
-import './styles.scss';
+import { EmptyState, DesktopHeader, MobileHeader, MobileHeaderCondensed } from '../../components';
+// import './styles.scss';
 
 function formatTime(date: number) {
   return (new Date(date)).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
@@ -20,24 +20,26 @@ const History: React.FC = () => {
     () => {
       if (state.history.length) {
         return (
-          <IonList>
-            {state.history.map((history: SessionHistory) => (
-              <IonItemSliding key={history.id}>
-                <IonItem routerLink={`/history/${history.id}`}>
-                  <IonLabel>
-                    <h3>{formatDate(history.date)}</h3>
-                    <p>{formatTime(history.timeStart)} - {formatTime(history.timeEnd)}</p>
-                  </IonLabel>
-                  <IonNote slot="end">
-                    {history.kicks.length}
-                  </IonNote>
-                </IonItem>
-                <IonItemOptions side="end">
-                  <IonItemOption color="danger" onClick={() => dispatch({ type: Action.RemoveHistory, payload: { id: history.id } })}>Delete</IonItemOption>
-                </IonItemOptions>
-              </IonItemSliding>
-            ))}
-          </IonList>
+          <>
+            <IonList>
+              {state.history.map((history: SessionHistory) => (
+                <IonItemSliding key={history.id}>
+                  <IonItem routerLink={`/history/${history.id}`}>
+                    <IonLabel>
+                      <h3>{formatDate(history.date)}</h3>
+                      <p>{formatTime(history.timeStart)} - {formatTime(history.timeEnd)}</p>
+                    </IonLabel>
+                    <IonNote slot="end">
+                      {history.kicks.length}
+                    </IonNote>
+                  </IonItem>
+                  <IonItemOptions side="end">
+                    <IonItemOption color="danger" onClick={() => dispatch({ type: Action.RemoveHistory, payload: { id: history.id } })}>Delete</IonItemOption>
+                  </IonItemOptions>
+                </IonItemSliding>
+              ))}
+            </IonList>
+          </>
         )
       }
 
@@ -57,18 +59,22 @@ const History: React.FC = () => {
 
   return (
     <IonPage className="history">
-      <IonHeader translucent={true}>
-        <IonToolbar color="light">
-          <IonTitle>History</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <MobileHeader title="History" />
       <IonContent fullscreen={true} color="light">
-        <IonHeader collapse="condense">
-          <IonToolbar color="light">
-            <IonTitle size="large">History</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        {renderHistory()}
+        <MobileHeaderCondensed title="History" />
+        <DesktopHeader />
+        <main className="ion-padding-vertical">
+          {isPlatform('desktop') &&
+            <IonHeader className="u-sticky">
+              <IonToolbar className="title" color="light">
+                <IonTitle size="large">
+                  <h1>History</h1>
+                </IonTitle>
+              </IonToolbar>
+            </IonHeader>
+          }
+          {renderHistory()}
+        </main>
       </IonContent>
     </IonPage>
   );

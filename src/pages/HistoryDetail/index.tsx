@@ -1,9 +1,9 @@
 import React, { useContext, useCallback, useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, useIonViewDidEnter, IonLoading, IonButtons, IonBackButton, IonGrid, IonRow, IonCol, IonListHeader, IonButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, useIonViewDidEnter, IonLoading, IonButtons, IonBackButton, IonGrid, IonRow, IonCol, IonListHeader, IonButton, isPlatform } from '@ionic/react';
 import { useParams } from 'react-router';
 import { SessionHistory, Kick } from '../../types';
 import { Context } from '../../state';
-import { EmptyState } from '../../components';
+import { EmptyState, MobileHeader, MobileHeaderCondensed, DesktopHeader } from '../../components';
 import './styles.scss';
 
 function formatTime(date: number) {
@@ -68,33 +68,44 @@ const HistoryDetail: React.FC = () => {
 
   return (
     <IonPage className="history-detail">
-      <IonHeader>
-        <IonToolbar color="light">
+      <MobileHeader title={session ? formatDate(session.date) : ''} backButtons={
+        <>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/history" />
           </IonButtons>
-          <IonTitle>{session ? formatDate(session.date) : ''}</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+        </>
+      } />
+
       <IonContent fullscreen={true} color="light">
-        <IonHeader collapse="condense">
-          <IonToolbar color="light">
-            <IonTitle size="large">{session ? formatDate(session.date) : ''}</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonGrid>
-          <IonRow>
-            <IonCol className="ion-text-center">
-              <span className="eyebrow">Start Time</span>
-              {session && <h4>{formatTime(session.timeStart)}</h4>}
-            </IonCol>
-            <IonCol className="ion-text-center">
-              <span className="eyebrow">End Time</span>
-              {session && <h4>{formatTime(session.timeEnd)}</h4>}
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-        {!loading ? renderHistory() : null}
+        <MobileHeaderCondensed title={session ? formatDate(session.date) : ''} />
+        <DesktopHeader />
+        <main className="ion-padding-vertical">
+          {isPlatform('desktop') &&
+            <IonHeader className="u-sticky">
+              <IonToolbar className="title" color="light">
+                <IonButtons slot="start">
+                  <IonBackButton defaultHref="/history" />
+                </IonButtons>
+                <IonTitle size="large">
+                  <h1>{session ? formatDate(session.date) : ''}</h1>
+                </IonTitle>
+              </IonToolbar>
+            </IonHeader>
+          }
+          <IonGrid>
+            <IonRow>
+              <IonCol className="ion-text-center">
+                <span className="eyebrow">Start Time</span>
+                {session && <h4>{formatTime(session.timeStart)}</h4>}
+              </IonCol>
+              <IonCol className="ion-text-center">
+                <span className="eyebrow">End Time</span>
+                {session && <h4>{formatTime(session.timeEnd)}</h4>}
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          {!loading ? renderHistory() : null}
+        </main>
       </IonContent>
       <IonLoading isOpen={loading} />
     </IonPage>

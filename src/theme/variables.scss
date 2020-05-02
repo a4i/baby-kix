@@ -189,3 +189,53 @@ http://ionicframework.com/docs/theming/ */
     --ion-tab-bar-background: #1f1f1f;
   }
 }
+
+ion-header[class*="header"] ion-toolbar[class*="in-toolbar"] {
+  --border-width: 0;
+}
+
+ion-header[class*="header"]::after {
+  background-image: none;
+}
+
+ion-header ion-toolbar ion-button {
+  --box-shadow: none;
+}
+
+ion-toolbar.title {
+  background: transparent;
+  --background: transparent;
+
+  --padding-start: 0;
+  --padding-end: 0;
+  --border-width: 0;
+
+  ion-title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  h1 {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 768px) {
+    margin: 0 auto;
+    max-width: 900px;
+  }
+}
+
+ion-list {
+  --ion-item-background: transparent;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.u-sticky {
+  position: sticky;
+  top: 0;
+}
