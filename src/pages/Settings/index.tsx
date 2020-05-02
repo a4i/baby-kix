@@ -15,13 +15,13 @@ const Settings: React.FC = () => {
   return (
     <IonPage className="settings">
       <IonHeader translucent={true}>
-        <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
+        <IonToolbar color="light">
           <IonTitle>Settings</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen={true} color="light">
         <IonHeader collapse="condense">
-          <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
+          <IonToolbar color="light">
             <IonTitle size="large">Settings</IonTitle>
           </IonToolbar>
         </IonHeader>

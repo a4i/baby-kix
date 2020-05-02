@@ -69,7 +69,7 @@ const HistoryDetail: React.FC = () => {
   return (
     <IonPage className="history-detail">
       <IonHeader>
-        <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
+        <IonToolbar color="light">
           <IonButtons slot="start">
             <IonBackButton defaultHref="/history" />
           </IonButtons>
@@ -78,7 +78,7 @@ const HistoryDetail: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen={true} color="light">
         <IonHeader collapse="condense">
-          <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
+          <IonToolbar color="light">
             <IonTitle size="large">{session ? formatDate(session.date) : ''}</IonTitle>
           </IonToolbar>
         </IonHeader>

@@ -58,13 +58,13 @@ const History: React.FC = () => {
   return (
     <IonPage className="history">
       <IonHeader translucent={true}>
-        <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
+        <IonToolbar color="light">
           <IonTitle>History</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen={true} color="light">
         <IonHeader collapse="condense">
-          <IonToolbar color="secondary" style={{ '--border-color': 'var(--ion-color-secondary)' }}>
+          <IonToolbar color="light">
             <IonTitle size="large">History</IonTitle>
           </IonToolbar>
         </IonHeader>

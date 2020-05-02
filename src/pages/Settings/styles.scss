@@ -1,7 +1,7 @@
 .settings {
-    ion-toolbar {
-        background: var(--ion-color-secondary) !important;
-    }
+    // ion-toolbar {
+    //     background: var(--ion-color-secondary) !important;
+    // }
 
     ion-content {
         --overflow: hidden;
@@ -23,8 +23,7 @@
 
         border-radius: 10px;
         background: #f4f5f8;
-        box-shadow:  5px 5px 10px #cfd0d3,
-                    -5px -5px 10px #ffffff;
+        box-shadow:  5px 5px 10px #cfd0d3, -5px -5px 10px #ffffff;
 
         &.ion-activated,
         &.item-has-focus {
