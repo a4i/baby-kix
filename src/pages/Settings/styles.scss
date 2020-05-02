@@ -1,7 +1,4 @@
 .settings {
-    // ion-toolbar {
-    //     background: var(--ion-color-secondary) !important;
-    // }
 
     ion-content {
         --overflow: hidden;
@@ -31,10 +28,6 @@
             box-shadow: inset 5px 5px 10px #cfd0d3,
                         inset -5px -5px 10px #ffffff;
         }
-    }
-
-    ion-item {
-        border-radius: 10px;
     }
 
     ion-segment {
