@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 // import { Redirect, Route } from 'react-router-dom';
-import { IonApp } from '@ionic/react';
+import { IonApp, isPlatform } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Plugins } from '@capacitor/core';
+import { AdSize, AdPosition } from 'capacitor-admob';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -32,7 +33,7 @@ import Tabs from './pages/Tabs';
 import { AppState } from './types';
 import { SplashScreen as AppSplashScreen } from './components';
 
-const { SplashScreen, Storage } = Plugins;
+const { AdMob, SplashScreen, Storage } = Plugins;
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -47,6 +48,18 @@ const App: React.FC = () => {
         }
 
         await SplashScreen.hide();
+
+        if (isPlatform('capacitor')) {
+          AdMob.initialize();
+
+          // const isoAdId = isPlatform('ios') ? process.env.REACT_APP_ADMOB_BANNER_AD_IOS : process.env.REACT_APP_ADMOB_BANNER_AD_MD;
+          AdMob.showBanner({
+            adId: process.env.REACT_APP_ADMOB_BANNER_AD_TEST, // isoAdId,
+            adSize: AdSize.SMART_BANNER,
+            position: AdPosition.BOTTOM_CENTER,
+            margin: 50
+          });
+        }
 
         setTimeout(() => {
           setLoading(false);

@@ -1,5 +1,5 @@
-import React from 'react';
-import { IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonIcon } from '@ionic/react';
+import React, { useContext } from 'react';
+import { IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonIcon, IonModal } from '@ionic/react';
 import { Route, Redirect } from 'react-router';
 import { timerOutline, barChartOutline, settingsOutline } from 'ionicons/icons';
 import Counter from '../Counter';
@@ -7,8 +7,14 @@ import History from '../History';
 import HistoryDetail from '../HistoryDetail';
 import Settings from '../Settings';
 import './styles.scss';
+import { LoginModal } from '../../modals';
+import { Context } from '../../state';
+import { Action } from '../../types';
 
 const Tabs: React.FC = () => {
+  const { dispatch, showLogin = false } = useContext(Context);
+  // const [showLogin, setShowLogin] = useState<boolean>(false);
+
   return (
     <>
       <IonTabs>
@@ -31,6 +37,13 @@ const Tabs: React.FC = () => {
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
+
+      <IonModal
+        isOpen={showLogin}
+        onDidDismiss={() => dispatch({ type: Action.ToggleLoginModal, payload: { showLogin: false } })}
+      >
+        <LoginModal />
+      </IonModal>
     </>
   );
 };

@@ -1,13 +1,14 @@
-import React, { useContext, useEffect, useState, CSSProperties, useRef } from 'react';
-import { isPlatform, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonIcon, IonToast } from '@ionic/react';
+import React, { useContext, useEffect, useState, CSSProperties, useRef, useCallback } from 'react';
+import { isPlatform, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonIcon, IonToast, useIonViewDidEnter } from '@ionic/react';
 import { differenceInSeconds } from 'date-fns';
 import { useHistory } from 'react-router-dom';
 import { Plugins, HapticsImpactStyle } from '@capacitor/core';
+import { AdSize, AdPosition } from 'capacitor-admob';
 import { Context } from '../../state';
 import { Action, SessionState } from '../../types';
 import './styles.scss';
 
-const { Haptics } = Plugins;
+const { AdMob, Haptics } = Plugins;
 
 function formatTime(seconds: number): string {
   const diffHours: number = Math.floor(seconds / 3600);
@@ -26,6 +27,39 @@ const Counter: React.FC = () => {
 
   const interval = useRef<null|NodeJS.Timeout>(null);
   const prevSessionState = useRef<SessionState>(SessionState.Stopped);
+  const adReady = useRef<boolean>(false);
+
+  const showAd = useCallback(
+    async () => {
+      if (isPlatform('capacitor')) {
+        // const isoAdId = isPlatform('ios') ? process.env.REACT_APP_ADMOB_INTERSTITIAL_IOS : process.env.REACT_APP_ADMOB_INTERSTITIAL_MD;
+        try {
+          await AdMob.prepareInterstitial({
+            adId: process.env.REACT_APP_ADMOB_INTERSTITIAL_TEST, // isoAdId,
+            adSize: AdSize.SMART_BANNER,
+            position: AdPosition.BOTTOM_CENTER,
+          });
+          adReady.current = true;
+        } catch (error) {
+          console.log("ERROR", error)
+        }
+      }
+    },
+    []
+  );
+
+  useIonViewDidEnter(
+    async () => {
+      if (isPlatform('capacitor')) {
+        AdMob.addListener("onAdLoaded", (info: boolean) => {
+          if (adReady.current) {
+            AdMob.showInterstitial();
+          }
+        });
+      }
+    },
+    []
+  );
 
   useEffect(
     () => {
@@ -127,6 +161,10 @@ const Counter: React.FC = () => {
             <IonButton fill="outline" size="small" onClick={() => {
               dispatch({ type: Action.Stop });
               setShowAlert(true);
+
+              setTimeout(() => {
+                showAd();
+              }, 3000);
             }}>
               Stop Session
             </IonButton>

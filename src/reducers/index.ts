@@ -1,5 +1,6 @@
 import { Action, AppState, AppAction, SessionHistory, SessionState } from "../types";
 import { Plugins } from '@capacitor/core';
+import { firestore } from "../firebase";
 const { Storage } = Plugins;
 
 function uniqueId() {
@@ -22,16 +23,28 @@ export function reducer(state: AppState, action: AppAction) {
       };
       break;
     case Action.Stop:
+      const recentHistory = {
+        id: uniqueId(),
+        date: new Date(state.timeStart!).toString(),
+        timeStart: state.timeStart!,
+        timeEnd: state.timeEnd!,
+        kicks: state.kicks
+      };
+
       const history = [
         {
-          id: uniqueId(),
-          date: new Date(state.timeStart!).toString(),
-          timeStart: state.timeStart!,
-          timeEnd: state.timeEnd!,
-          kicks: state.kicks
+          ...recentHistory,
         },
         ...state.history
       ];
+
+      // ship this to firebase
+      if (state.authenticated && state.user) {
+        firestore.doc(`sessions/${recentHistory.id}`).set({
+          ...recentHistory,
+          userId: state.user.uid
+        });
+      }
 
       newState = {
         ...state,
@@ -72,6 +85,11 @@ export function reducer(state: AppState, action: AppAction) {
       const index = newHistory.findIndex((history: SessionHistory) => history.id === action.payload.id);
       newHistory.splice(index, 1);
 
+      // ship this to firebase
+      if (state.authenticated && state.user) {
+        firestore.doc(`sessions/${action.payload.id}`).delete();
+      }
+
       newState = {
         ...state,
         history: [
@@ -87,6 +105,41 @@ export function reducer(state: AppState, action: AppAction) {
           [action.payload.key]: action.payload.value
         }
       };
+
+      // ship this to firebase
+      if (state.authenticated && state.user) {
+        firestore.doc(`settings/${state.user.uid}`).set({
+          ...newState.settings
+        }, { merge: true })
+      }
+
+      break;
+    case Action.ToggleLoginModal:
+      newState = {
+        ...state,
+        showLogin: action.payload.showLogin
+      };
+      break;
+    case Action.SetUser:
+      newState = {
+        ...state,
+        authenticated: Boolean(action.payload.user),
+        user: action.payload.user
+      };
+      break;
+    case Action.StorageSync:
+      newState = {
+        ...state,
+      }
+
+      if (action.payload.history) {
+        newState.history = action.payload.history;
+      }
+
+      if (action.payload.settings) {
+        newState.settings = action.payload.settings;
+      }
+
       break;
     default:
       break;
