@@ -7,7 +7,7 @@ export const ResetForm: React.FC<{ setMode: any }> = ({ setMode }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
   const [state, setState] = useState<FormState>({
-    email: 'franco.valdes89@gmail.com'
+    email: ''
   });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

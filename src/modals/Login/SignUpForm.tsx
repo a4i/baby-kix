@@ -9,9 +9,9 @@ export const SignUpForm: React.FC<{ setMode: any }> = ({ setMode }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
   const [state, setState] = useState<SignUpFormState>({
-    name: 'Franco Valdes',
-    email: 'franco.valdes89@gmail.com',
-    password: 'baseball'
+    name: '',
+    email: '',
+    password: ''
   });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

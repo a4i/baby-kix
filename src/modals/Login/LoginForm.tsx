@@ -9,8 +9,8 @@ export const LoginForm: React.FC<{ setMode: any }> = ({ setMode }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
   const [state, setState] = useState<LoginFormState>({
-    email: 'franco.valdes89@gmail.com',
-    password: 'baseball'
+    email: '',
+    password: ''
   });
 
   const syncHistory = (user: firebase.User) => {
